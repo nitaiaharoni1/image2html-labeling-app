@@ -1,17 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import BoundingBox from "./BoundingBox";
 import styles from "./Canvas.module.scss";
+import Checkboxes from "./Checkboxes";
 
-const Canvas = ({ fileName, img, txt }) => {
+let tagNames = [
+    "a",
+    "button",
+    "div",
+    "form",
+    "h1",
+    "hr",
+    "img",
+    "input",
+    "li",
+    "ol",
+    "p",
+    "select",
+    "span",
+    "svg",
+    "table",
+    "td",
+    "textarea",
+    "th",
+    "tr",
+    "ul",
+    "video"
+];
+
+const Canvas = ({ fileName,fileNum, img, txt }) => {
         const [url, setUrl] = useState();
         const [dimensions, setDimensions] = useState();
-        const [boxes, setBoxes] = useState();
+        const [boxes, setBoxes] = useState([]);
+        const [tagsToBox, setTagsToBox] = useState([]);
         const [lastRemovedBoxes, setLastRemovedBoxes] = useState([]);
+
 
         useEffect(() => {
             readImg();
             readTxt();
         }, []);
+
+
+        const boxesToShow = () => {
+            return boxes.filter((box) => tagsToBox.includes(tagNames?.[box?.label]))
+        }
+
+        const handleChecked = (tagsToBox) => {
+            setTagsToBox(tagsToBox);
+        }
 
         const removeBox = (name, index) => {
             const bxs = [...boxes]
@@ -47,47 +83,58 @@ const Canvas = ({ fileName, img, txt }) => {
         }
 
         const readImg = () => {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const Img = new Image();
-                Img.onload = function () {
-                    const ur = URL.createObjectURL(img);
-                    const dimensions = {
-                        width: Img.width,
-                        height: Img.height
-                    }
-                    setUrl(ur)
-                    setDimensions(dimensions)
-                };
-                Img.src = reader.result;
+            try {
+                const reader = new FileReader();
+                reader.onload = function () {
+                    const Img = new Image();
+                    Img.onload = function () {
+                        const ur = URL.createObjectURL(img);
+                        const dimensions = {
+                            width: Img.width,
+                            height: Img.height
+                        }
+                        setUrl(ur)
+                        setDimensions(dimensions)
+                    };
+                    Img.src = reader.result;
+                }
+                reader.readAsDataURL(img);
+            } catch (e) {
+                console.error('IMG', fileName, e)
             }
-            reader.readAsDataURL(img);
         }
 
         const readTxt = () => {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                const text = event?.target?.result?.toString();
-                const lines = text?.split('\n');
-                const boxes = lines?.map((line) => {
-                    const [label, x, y, width, height] = line.split(' ');
-                    return {
-                        label,
-                        coord: [x, y, width, height]
-                    };
-                })
-                setBoxes(boxes)
-            };
-            reader.readAsText(txt);
+            try {
+                const reader = new FileReader();
+                reader.addEventListener("load", (e) => {
+                    const text = e?.target?.result?.toString();
+                    const lines = text?.split('\n');
+                    const boxes = lines?.map((line) => {
+                        const [label, x, y, width, height] = line.split(' ');
+                        return {
+                            label,
+                            coord: [x, y, width, height]
+                        };
+                    })
+                    setBoxes(boxes)
+                });
+                reader.readAsText(txt);
+            } catch (e) {
+                console.error('TXT', fileName, e)
+            }
         }
 
         return (
             <div style={{ margin: 60 }}>
-                <div style={{ marginBottom: 10 }}>{fileName}</div>
+                <div style={{ marginBottom: 10 }}>{`${fileNum}. ${fileName}`} <input type="checkbox"/></div>
+
+                {boxes.length > 0 && <Checkboxes onChecked={handleChecked} boxes={boxes} tagNames={tagNames}/>}
                 <div className={styles.canvas}>
-                    {boxes && url && dimensions &&
-                    <BoundingBox key={url} image={url} boxes={boxes}
-                                 dimensions={dimensions} onClick={removeBox}/>}
+                    {url && dimensions &&
+                    <BoundingBox key={url} image={url} boxes={boxesToShow()}
+                                 dimensions={dimensions}
+                                 onClick={removeBox}/>}
                 </div>
                 <div className={styles.btnGroup}>
                     <button className={styles.buttonDownload}

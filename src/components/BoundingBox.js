@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styles from "./BoundingBox.module.scss";
 
 const colors = {
     normal: 'rgb(74,160,58)',
@@ -126,7 +127,6 @@ class BoundingBox extends Component {
             return null;
         }
         const allBoxes = this.props?.boxes
-        debugger;
         const sameSizeBoxes = allBoxes.filter(bx => {
             const boxCord = box?.coord;
             const curCord = bx?.coord;
@@ -211,7 +211,7 @@ class BoundingBox extends Component {
 
 
     render() {
-        return <canvas style={this.props?.options?.style} ref={this.canvas}/>;
+        return <canvas className={styles.canv} style={this.props?.options?.style} ref={this.canvas}/>;
     }
 }
 
@@ -250,6 +250,10 @@ BoundingBox.defaultProps = {
         },
         base64Image: false,
     }
+}
+
+BoundingBox.defaultProps = {
+    boxes: []
 }
 
 export default BoundingBox;

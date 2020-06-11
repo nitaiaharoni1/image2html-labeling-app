@@ -43,7 +43,7 @@ function App() {
           <button className={styles.downloadAll} onClick={handleDownloadAll}>Download All</button>}
         </div>
       </div>
-      {fileNames.map(fileName => {
+      {fileNames.map((fileName, index) => {
         const filez = files[fileName];
         // @ts-ignore
         const img = filez.img;
@@ -51,7 +51,7 @@ function App() {
         const txt = filez?.txt;
         return (
           <div key={fileName}>
-            <Canvas fileName={fileName} img={img} txt={txt}/>
+            <Canvas fileName={fileName} fileNum={index + 1} img={img} txt={txt}/>
             <hr/>
           </div>)
       })}

@@ -10,6 +10,18 @@
   border: 1px solid black;
 }
 
+.checkboxes {
+  display: flex;
+  place-content: center;
+  margin-bottom: 8px;
+}
+
+.checkboxWrapper {
+  text-align: center;
+  width: 50px;
+  border: 1px solid black;
+}
+
 .buttonDownload {
   padding: 10px;
   width: 80px;
