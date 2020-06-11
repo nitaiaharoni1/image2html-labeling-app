@@ -27,7 +27,7 @@ let tagNames = [
     "video"
 ];
 
-const Canvas = ({ fileName,fileNum, img, txt }) => {
+const Canvas = ({ fileName, fileNum, img, txt }) => {
         const [url, setUrl] = useState();
         const [dimensions, setDimensions] = useState();
         const [boxes, setBoxes] = useState([]);
@@ -127,9 +127,16 @@ const Canvas = ({ fileName,fileNum, img, txt }) => {
 
         return (
             <div style={{ margin: 60 }}>
-                <div style={{ marginBottom: 10 }}>{`${fileNum}. ${fileName}`} <input type="checkbox"/></div>
-
-                {boxes.length > 0 && <Checkboxes onChecked={handleChecked} boxes={boxes} tagNames={tagNames}/>}
+                <div className={styles.topRow}>
+                    <div className={styles.fileName}>
+                        {`${fileNum}. ${fileName}`}
+                        <input style={{width: 20, height: 20}} type="checkbox"/>
+                    </div>
+                    {boxes.length > 0 &&
+                    <Checkboxes onChecked={handleChecked} boxes={boxes}
+                                tagNames={tagNames}/>}
+                <div style={{width: '15%'}}/>
+                </div>
                 <div className={styles.canvas}>
                     {url && dimensions &&
                     <BoundingBox key={url} image={url} boxes={boxesToShow()}
