@@ -60,8 +60,7 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
             index: -1,
             dimensions: null
         };
-        // eslint-disable-next-line no-unused-expressions
-        bxsToShow?.forEach((box, index) => {
+        bxsToShow.forEach((box, index) => {
             let { x: bx = 0, y: by = 0, width: bw = 0, height: bh = 0 } = unormalizeBox(box, dimensions?.width, dimensions?.height);
             if (x >= bx && x <= bx + bw && y >= by && y <= by + bh) {
                 const insideBox = !selectedBox?.dimensions || (
@@ -71,7 +70,7 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
                     by <= selectedBox?.dimensions[1] + selectedBox?.dimensions[3]
                 );
                 if (insideBox) {
-                    selectedBox.index = index;
+                    selectedBox.index = boxes?.indexOf(box);
                     selectedBox.dimensions = [bx, by, bw, bh];
                 }
             }
@@ -175,7 +174,7 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
 
     const renderBoxes = () => {
         bxsToShow.map((box, index) => {
-            const selected = index === hoverIndex;
+            const selected = boxes.indexOf(box) === hoverIndex;
             return {
                 box,
                 index,

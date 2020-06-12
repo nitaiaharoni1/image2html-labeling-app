@@ -18,6 +18,7 @@ const getRelevantTags = (boxes, tagNames) => {
 const Checkboxes = ({onChecked, boxes, tagNames }) => {
         const relevantTags = getRelevantTags(boxes, tagNames);
         const [checkedCheckboxes, setCheckedCheckboxes] = useState(initcheckboxes(relevantTags));
+        const [allCheckboxes, setAllCheckboxes] = useState(true);
 
         useEffect(() => {
             const tagsToBox = Object.keys(checkedCheckboxes).filter(tag => checkedCheckboxes[tag]);
@@ -31,13 +32,29 @@ const Checkboxes = ({onChecked, boxes, tagNames }) => {
             })
         }
 
+        const toggleAllChecked = () => {
+            const allTrue = { ...checkedCheckboxes };
+            Object.keys(allTrue).forEach(key => {
+                allTrue[key] = !allCheckboxes;
+            })
+            setAllCheckboxes(!allCheckboxes);
+            setCheckedCheckboxes(allTrue);
+        }
+
         return (
             <div className={styles.checkboxes}>
+                <label key={'all'} className={styles.checkboxWrapper}>
+                    <div style={{fontWeight: 'bold'}}>{'All'}</div>
+                    <input type="checkbox" checked={allCheckboxes}
+                           onChange={() => toggleAllChecked()}
+                    />
+                </label>
                 {relevantTags.map(tag => {
+                    if(!tag) return;
                     return (
                         <label key={tag} className={styles.checkboxWrapper}>
                             <div>{`${tag}`}</div>
-                            <input type="checkbox" defaultChecked={true}
+                            <input type="checkbox" checked={checkedCheckboxes[tag]}
                                    onChange={() => toggleChecked(tag)}/>
                         </label>
                     )
