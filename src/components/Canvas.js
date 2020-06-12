@@ -40,16 +40,11 @@ const Canvas = ({ fileName, fileNum, img, txt }) => {
             readTxt();
         }, []);
 
-
-        const boxesToShow = () => {
-            return boxes.filter((box) => tagsToBox.includes(tagNames?.[box?.label]))
-        }
-
         const handleChecked = (tagsToBox) => {
             setTagsToBox(tagsToBox);
         }
 
-        const removeBox = (name, index) => {
+        const removeBox = (index) => {
             const bxs = [...boxes]
             const removedBox = bxs.splice(index, 1);
             setBoxes(bxs);
@@ -122,6 +117,7 @@ const Canvas = ({ fileName, fileNum, img, txt }) => {
                 reader.readAsText(txt);
             } catch (e) {
                 console.error('TXT', fileName, e)
+                readTxt();
             }
         }
 
@@ -132,16 +128,21 @@ const Canvas = ({ fileName, fileNum, img, txt }) => {
                         {`${fileNum}. ${fileName}`}
                         <input style={{width: 20, height: 20}} type="checkbox"/>
                     </div>
-                    {boxes.length > 0 &&
+                    {boxes?.length > 0 &&
                     <Checkboxes onChecked={handleChecked} boxes={boxes}
                                 tagNames={tagNames}/>}
                 <div style={{width: '15%'}}/>
                 </div>
                 <div className={styles.canvas}>
                     {url && dimensions &&
-                    <BoundingBox key={url} image={url} boxes={boxesToShow()}
+                    <BoundingBox key={url}
+                                 image={url}
                                  dimensions={dimensions}
-                                 onClick={removeBox}/>}
+                                 boxes={boxes}
+                                 tagNames={tagNames}
+                                 tagsToBox={tagsToBox}
+                                 onClick={removeBox}/>
+                    }
                 </div>
                 <div className={styles.btnGroup}>
                     <button className={styles.buttonDownload}

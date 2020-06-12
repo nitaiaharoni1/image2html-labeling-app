@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from "./Canvas.module.scss";
+import styles from "./Checkboxes.module.scss";
 
 const initcheckboxes = (relevantTags) => {
     const map = {};
@@ -11,7 +11,7 @@ const initcheckboxes = (relevantTags) => {
 
 const getRelevantTags = (boxes, tagNames) => {
     const tags = boxes.map((box) => tagNames?.[box.label])
-        .filter(item => item);
+        .filter(tag => tag).sort();
     return [...new Set(tags)]
 }
 
