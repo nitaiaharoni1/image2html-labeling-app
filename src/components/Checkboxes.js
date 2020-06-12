@@ -10,7 +10,7 @@ const initcheckboxes = (relevantTags) => {
 }
 
 const getRelevantTags = (boxes, tagNames) => {
-    const tags = boxes.map((box) => tagNames?.[box.label])
+    const tags = boxes?.map((box) => tagNames?.[box?.label])
         .filter(tag => tag).sort();
     return [...new Set(tags)]
 }

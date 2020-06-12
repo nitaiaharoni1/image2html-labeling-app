@@ -66,8 +66,10 @@ const Canvas = ({ fileName, fileNum, img, txt }) => {
         }
 
         const handleReset = () => {
-            setBoxes(null)
+            const dim = { ...dimensions };
+            setDimensions(null);
             readTxt();
+            setDimensions(dim);
         }
 
         const handleUndo = () => {

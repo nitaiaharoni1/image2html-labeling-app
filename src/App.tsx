@@ -36,7 +36,7 @@ function App() {
     <div className={styles.app}>
       <div className={styles.nav}>
         <div className={styles.inputWrapper}>
-          <input className={styles.filesInput} style={{ width: fileNames.length > 0 ? 160 : 250 }} type="file"
+          <input className={styles.filesInput} style={{ width: fileNames.length > 0 ? 200 : 250 }} type="file"
                  id="files" name="files" multiple
                  onChange={handleChange}/>
           {fileNames.length > 0 &&

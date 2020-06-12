@@ -26,7 +26,7 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
 
     useEffect(() => {
         initCanvas();
-    }, [bg, boxes.length, tagsToBox]);
+    }, [bg, boxes?.length, tagsToBox]);
 
     useEffect(() => {
         renderBoxes();
