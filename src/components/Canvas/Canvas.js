@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import BoundingBox from "./BoundingBox";
+import { BoundingBox, Checkboxes, ButtonGroup } from '..';
 import styles from "./Canvas.module.scss";
-import Checkboxes from "./Checkboxes";
 
 let tagNames = [
     "a",
@@ -33,7 +32,6 @@ const Canvas = ({ fileName, fileNum, img, txt }) => {
         const [boxes, setBoxes] = useState([]);
         const [tagsToBox, setTagsToBox] = useState([]);
         const [lastRemovedBoxes, setLastRemovedBoxes] = useState([]);
-
 
         useEffect(() => {
             readImg();
@@ -124,39 +122,36 @@ const Canvas = ({ fileName, fileNum, img, txt }) => {
         }
 
         return (
-            <div style={{ margin: 60 }}>
-                <div className={styles.topRow}>
-                    <div className={styles.fileName}>
-                        {`${fileNum}. ${fileName}`}
-                        <input style={{width: 20, height: 20}} type="checkbox"/>
+            <div key={fileName}>
+                <div style={{ margin: 60 }}>
+                    <div className={styles.topRow}>
+                        <div className={styles.fileName}>
+                            {`${fileNum}. ${fileName}`}
+                            <input style={{
+                                width: 20,
+                                height: 20
+                            }} type="checkbox"/>
+                        </div>
+                        {boxes?.length > 0 &&
+                        <Checkboxes onChecked={handleChecked} boxes={boxes}
+                                    tagNames={tagNames}/>}
+                        <div style={{ width: '15%' }}/>
                     </div>
-                    {boxes?.length > 0 &&
-                    <Checkboxes onChecked={handleChecked} boxes={boxes}
-                                tagNames={tagNames}/>}
-                <div style={{width: '15%'}}/>
+                    <div className={styles.canvas}>
+                        {url && dimensions &&
+                        <BoundingBox key={url}
+                                     image={url}
+                                     dimensions={dimensions}
+                                     boxes={boxes}
+                                     tagNames={tagNames}
+                                     tagsToBox={tagsToBox}
+                                     onClick={removeBox}/>
+                        }
+                    </div>
+                    <ButtonGroup onDownload={handleDownload} onReset={handleReset}
+                                 onUndo={handleUndo}/>
                 </div>
-                <div className={styles.canvas}>
-                    {url && dimensions &&
-                    <BoundingBox key={url}
-                                 image={url}
-                                 dimensions={dimensions}
-                                 boxes={boxes}
-                                 tagNames={tagNames}
-                                 tagsToBox={tagsToBox}
-                                 onClick={removeBox}/>
-                    }
-                </div>
-                <div className={styles.btnGroup}>
-                    <button className={styles.buttonDownload}
-                            onClick={handleDownload}>Download
-                    </button>
-                    <button className={styles.buttonReset}
-                            onClick={handleReset}>Reset
-                    </button>
-                    <button className={styles.buttonUndo}
-                            onClick={handleUndo}>Undo
-                    </button>
-                </div>
+                <hr/>
             </div>
         );
     }

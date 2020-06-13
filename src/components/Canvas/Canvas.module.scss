@@ -1,0 +1,17 @@
+.fileName {
+  display: flex;
+  align-items: center;
+  marginBottom: 10px;
+}
+
+.topRow{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.canvas{
+  display: flex;
+  place-content: center;
+  border: 1px solid black;
+}

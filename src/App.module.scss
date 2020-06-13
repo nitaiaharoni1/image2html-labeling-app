@@ -2,56 +2,17 @@
   margin-top: 150px;
 }
 
-.inputWrapper {
-  margin-top: 20px;
-  display: flex;
-  place-content: center;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.nav {
-  position: fixed;
-  border-bottom: 1px solid black;
-  top: 0;
-  width: 100%;
-  background-color: white;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
 }
 
-.downloadAll {
-  margin-left: 20px;
-  background: rgb(5, 126, 245);
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: 'Poppins', sans-serif;
-  font-size: inherit;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  outline: none;
-  padding: .75rem;
-  transition: all 0.3s;
-
-  &:hover {
-    background-color: rgb(59, 63, 65);
-  }
-}
-
-.filesInput {
-  background: #323232;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: 'Poppins', sans-serif;
-  font-size: inherit;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  padding: .75rem;
-  transition: all 0.3s;
-
-  &:hover {
-    background-color: rgb(59, 63, 65);
-  }
-
-}

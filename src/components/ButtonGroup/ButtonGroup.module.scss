@@ -1,0 +1,41 @@
+.btnGroup {
+  display: flex;
+  place-content: center;
+  margin-top: 5px;
+}
+
+.btn {
+  padding: 10px;
+  width: 80px;
+  margin: 0px 5px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  user-select: none;
+}
+
+.download {
+  margin-right: 10px;
+  background-color: rgb(5, 126, 245);
+
+  &:hover {
+    background-color: rgb(139, 194, 246);
+  }
+}
+
+.reset {
+  background-color: rgb(201, 72, 72);
+
+  &:hover {
+    background-color: rgb(222, 121, 121);
+  }
+}
+
+.undo {
+  margin-left: 10px;
+  background-color: rgb(50, 50, 50);
+
+  &:hover {
+    background-color: rgb(67, 72, 73);
+  }
+}
