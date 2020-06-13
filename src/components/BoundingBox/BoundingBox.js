@@ -1,12 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styles from "./BoundingBox.module.scss";
-
-const colors = {
-    normal: 'rgb(74,160,58)',
-    selected: 'rgb(225,0,0)',
-    unselected: 'rgba(0,225,204,1)',
-    double: 'rgb(120,0,225)'
-}
+import { colors } from '../../utils/colors'
 
 const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToBox }) => {
     const [hoverIndex, setHoverIndex] = useState(-1);
@@ -113,11 +107,11 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
             const [boxx, boxy, boxwidth, boxheight] = boxCord;
             return boxx === curx && cury === boxy && curwidth === boxwidth && curheight === boxheight;
         })
-        let color = colors.normal;
+        let color = colors.tags_colors[box?.label];
         let lineWidth = 2;
         const ctx = canvas?.current.getContext('2d');
         if (sameSizeBoxes.length > 1) {
-            lineWidth = 6;
+            lineWidth = 7;
             color = colors.double;
         }
         if (hover) {
@@ -190,7 +184,7 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
         className={styles.canv}
         onClick={() => onClick(hoverIndex)}
         onMouseMove={handleMouseMove}
-        onMouseOut={handleMouseOut}
+        onMouseLeave={handleMouseOut}
         style={{
             maxWidth: '100%',
             maxHeight: '90vh'

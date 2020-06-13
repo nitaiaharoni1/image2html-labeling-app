@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from "./Checkboxes.module.scss";
+import { colors } from '../../utils/colors'
 
 const initcheckboxes = (relevantTags) => {
     const map = {};
@@ -51,9 +52,10 @@ const Checkboxes = ({onChecked, boxes, tagNames }) => {
                 </label>
                 {relevantTags.map(tag => {
                     if(!tag) return;
+                    const color = colors.tags_colors[tagNames.indexOf(tag)];
                     return (
                         <label key={tag} className={styles.checkboxWrapper}>
-                            <div>{`${tag}`}</div>
+                            <div style={{color}}>{`${tag}`}</div>
                             <input type="checkbox" checked={checkedCheckboxes[tag]}
                                    onChange={() => toggleChecked(tag)}/>
                         </label>
