@@ -20,11 +20,7 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
 
     useEffect(() => {
         initCanvas();
-    }, [bg, boxes?.length, tagsToBox]);
-
-    useEffect(() => {
-        renderBoxes();
-    }, [hoverIndex]);
+    }, [hoverIndex, bg, boxes?.length, tagsToBox]);
 
     const initBackgroundAndCanvas = () => {
         const background = new Image();
@@ -79,21 +75,6 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
     const renderBox = (box, selected, dimensions) => {
         if (!box) return null;
         drawBox(box, selected, dimensions.width, dimensions.height);
-        if (box.label) {
-            drawLabel(selected, box)
-        }
-    }
-
-    const drawLabel = (color, box) => {
-        if (!box || typeof box === 'undefined') {
-            return null;
-        }
-        const ctx = canvas?.current.getContext('2d');
-        const coord = box?.coord ? box?.coord : box;
-        let [x, y, width, height] = [coord?.[0], coord?.[1], coord?.[2], coord?.[3]]
-        ctx.font = '25px Arial';
-        ctx.fillStyle = color;
-        ctx.fillText(box?.label, x + width / 2 - 20, y + height - 5);
     }
 
     const drawBox = (box, hover, imgWidth, imgHeight) => {
@@ -114,11 +95,14 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
             lineWidth = 7;
             color = colors.double;
         }
+        let { x, y, width, height } = unormalizeBox(box, imgWidth, imgHeight);
         if (hover) {
             color = colors.selected;
+            ctx.font = '12px Arial';
+            ctx.fillStyle = color;
+            const lbl = tagNames?.[box?.label];
+            ctx.fillText(lbl, x + 3, y + height - 3);
         }
-        let { x, y, width, height } = unormalizeBox(box, imgWidth, imgHeight);
-
         if (x < lineWidth / 2) {
             x = lineWidth / 2;
         }
