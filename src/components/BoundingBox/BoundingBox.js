@@ -51,7 +51,7 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
             dimensions: null
         };
         bxsToShow.forEach((box, index) => {
-            let { x: bx = 0, y: by = 0, width: bw = 0, height: bh = 0 } = unormalizeBox(box, dimensions?.width, dimensions?.height);
+            let { x: bx = 0, y: by = 0, width: bw = 0, height: bh = 0 } = unormalizeBox(box);
             if (x >= bx && x <= bx + bw && y >= by && y <= by + bh) {
                 const insideBox = !selectedBox?.dimensions || (
                     bx >= selectedBox?.dimensions[0] &&
@@ -72,12 +72,29 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
         setHoverIndex(-1)
     }
 
-    const renderBox = (box, selected, dimensions) => {
-        if (!box) return null;
-        drawBox(box, selected, dimensions.width, dimensions.height);
+    const handleClick = (e) => {
+        if (hoverIndex === -1) return;
+        const r = canvas?.current.getBoundingClientRect();
+        const scaleX = canvas?.current.width / r?.width;
+        const scaleY = canvas?.current.height / r?.height;
+        const clientx = (e?.clientX - r?.left) * scaleX;
+        const clienty = (e?.clientY - r?.top) * scaleY;
+        const currentHoverBox = boxes?.[hoverIndex];
+        let { x, y, width, height } = unormalizeBox(currentHoverBox);
+        debugger;
+        const insideX = clientx > x && clientx < x + width;
+        const insideY = clienty > y && clienty < y + height;
+        if (insideX && insideY) {
+            onClick(hoverIndex)
+        }
     }
 
-    const drawBox = (box, hover, imgWidth, imgHeight) => {
+    const renderBox = (box, selected) => {
+        if (!box) return null;
+        drawBox(box, selected);
+    }
+
+    const drawBox = (box, hover) => {
         if (!box || typeof box === 'undefined') {
             return null;
         }
@@ -95,7 +112,7 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
             lineWidth = 7;
             color = colors.double;
         }
-        let { x, y, width, height } = unormalizeBox(box, imgWidth, imgHeight);
+        let { x, y, width, height } = unormalizeBox(box);
         if (hover) {
             color = colors.selected;
             ctx.font = '12px Arial';
@@ -134,7 +151,9 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
         ctx.stroke();
     }
 
-    const unormalizeBox = (box, imgWidth, imgHeight) => {
+    const unormalizeBox = (box) => {
+        const imgWidth = dimensions?.width;
+        const imgHeight = dimensions?.height;
         if (!box) return {};
         const coord = box?.coord ? box?.coord : box;
         let [x, y, width, height] = [coord?.[0], coord?.[1], coord?.[2], coord?.[3]]
@@ -160,13 +179,13 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
             };
         })
             .sort((a) => a.selected ? 1 : -1)
-            .forEach(box => renderBox(box?.box, box?.selected, dimensions));
+            .forEach(box => renderBox(box?.box, box?.selected));
     }
 
 
     return <canvas
         className={styles.canv}
-        onClick={() => onClick(hoverIndex)}
+        onClick={handleClick}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseOut}
         style={{
