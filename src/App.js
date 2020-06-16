@@ -44,7 +44,7 @@ function App() {
     const handleDownloadAll = () => {
         const elements = Array.from(document.querySelectorAll('[class*="ButtonGroup_download"]'));
         elements.forEach((element, index) => {
-            setTimeout(() => clickDownload(element), 200 * index);
+            setTimeout(() => clickDownload(element), 300 * index);
         })
     }
 
