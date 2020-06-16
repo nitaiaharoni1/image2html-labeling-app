@@ -26,7 +26,7 @@ let tagNames = [
     "video"
 ];
 
-const ComponentFrame = ({ fileName, fileNum, img, txt }) => {
+const ComponentFrame = ({ fileName, fileNum, img, txt, downloadNow }) => {
         const [url, setUrl] = useState();
         const [dimensions, setDimensions] = useState();
         const [boxes, setBoxes] = useState([]);
@@ -132,6 +132,7 @@ const ComponentFrame = ({ fileName, fileNum, img, txt }) => {
             }
         }
 
+        if (downloadNow) handleDownload();
         if (removeFrame) return null;
         return (
             <div key={fileName}>

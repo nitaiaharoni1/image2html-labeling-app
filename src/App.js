@@ -33,24 +33,36 @@ function App() {
         })
     }
 
+    function clickDownload(element) {
+        try {
+            element.click()
+        } catch (e) {
+            console.error('Can\'t click')
+        }
+    }
+
     const handleDownloadAll = () => {
         const elements = Array.from(document.querySelectorAll('[class*="ButtonGroup_download"]'));
-        elements.forEach((element) => element.click())
+        elements.forEach((element, index) => {
+            setTimeout(() => clickDownload(element), 200 * index);
+        })
     }
 
 
     return (
         <div className={styles.app}>
-            <Nav onChange={handleFilesChosen} onClickFiles={handleClickFiles} onClickDownload={handleDownloadAll}
+            <Nav onChange={handleFilesChosen} onClickFiles={handleClickFiles}
+                 onClickDownload={handleDownloadAll}
                  fileNames={fileNames}/>
             {fileNames.map((fileName, index) => {
                 const filez = files[fileName];
                 const img = filez.img;
                 const txt = filez?.txt;
                 return <ComponentFrame fileName={fileName}
-                               fileNum={index + 1}
-                               img={img}
-                               txt={txt}/>
+                                       fileNum={index + 1}
+                                       img={img}
+                                       key={fileName}
+                                       txt={txt}/>
             })}
         </div>
     );
