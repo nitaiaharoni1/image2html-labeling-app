@@ -32,6 +32,7 @@ const ComponentFrame = ({ fileName, fileNum, img, txt }) => {
         const [boxes, setBoxes] = useState([]);
         const [tagsToBox, setTagsToBox] = useState([]);
         const [lastRemovedBoxes, setLastRemovedBoxes] = useState([]);
+        const [removeFrame, setRemoveFrame] = useState(false);
 
         useEffect(() => {
             readImg();
@@ -40,6 +41,10 @@ const ComponentFrame = ({ fileName, fileNum, img, txt }) => {
 
         const handleChecked = (tagsToBox) => {
             setTagsToBox(tagsToBox);
+        }
+
+        const handleRemoveFrame = () => {
+            setRemoveFrame(true);
         }
 
         const removeBox = (index) => {
@@ -127,16 +132,20 @@ const ComponentFrame = ({ fileName, fileNum, img, txt }) => {
             }
         }
 
+        if (removeFrame) return null;
         return (
             <div key={fileName}>
                 <div style={{ margin: 60 }}>
                     <div className={styles.topRow}>
                         <div className={styles.fileName}>
                             {`${fileNum}. ${fileName}`}
-                            <input style={{
-                                width: 20,
-                                height: 20
-                            }} type="checkbox"/>
+                            <input className={styles.input}
+                                   type="checkbox"/>
+
+                            <button className={styles.btn}
+                                    onClick={handleRemoveFrame}>
+                                X
+                            </button>
                         </div>
                         {boxes?.length > 0 &&
                         <Checkboxes onChecked={handleChecked} boxes={boxes}
@@ -146,12 +155,12 @@ const ComponentFrame = ({ fileName, fileNum, img, txt }) => {
                     <div className={styles.canvas}>
                         {url && dimensions &&
                         <ComponentCanvas key={url}
-                                     image={url}
-                                     dimensions={dimensions}
-                                     boxes={boxes}
-                                     tagNames={tagNames}
-                                     tagsToBox={tagsToBox}
-                                     onClick={removeBox}/>
+                                         image={url}
+                                         dimensions={dimensions}
+                                         boxes={boxes}
+                                         tagNames={tagNames}
+                                         tagsToBox={tagsToBox}
+                                         onClick={removeBox}/>
                         }
                     </div>
                     <ButtonGroup onDownload={handleDownload} onReset={handleReset}

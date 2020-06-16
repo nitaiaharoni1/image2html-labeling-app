@@ -15,3 +15,25 @@
   place-content: center;
   border: 1px solid black;
 }
+
+.input {
+  width: 20px;
+  height: 20px;
+}
+
+.btn {
+  width: 20px;
+  height: 20px;
+  padding: 1px 0 0 0;
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+  font-weight: bold;
+  border-color: black;
+  margin-left: 5px;
+
+  &:hover {
+    background-color: #44484a;
+    border-color: #44484a;
+  }
+}

@@ -6,8 +6,15 @@ function App() {
     const [fileNames, setFileNames] = useState([]);
     const [files, setFiles] = useState({});
 
+    const handleClickFiles = () => {
+        if (fileNames.length > 0 || files !== {}) {
+            setFileNames([]);
+            setFiles({});
+        }
+    }
+
     const handleFilesChosen = (e) => {
-        const files = {}
+        const filess = {}
         const AllFiles = Array.from(e.target.files);
         const fileNamess = Array.from(AllFiles)
             .map((file) => file.name.split('.')[0])
@@ -15,26 +22,26 @@ function App() {
         fileNamess.forEach((fileName, index) => {
             const img = AllFiles.filter((file) => file.name === `${fileName}.jpeg`)[0]
             const txt = AllFiles.filter((file) => file.name === `${fileName}.txt`)[0]
-            files[fileName] = {
+            filess[fileName] = {
                 txt,
                 img
             };
             if (index === fileNamess.length - 1) {
                 setFileNames(fileNamess);
-                setFiles(files);
+                setFiles(filess);
             }
         })
     }
 
     const handleDownloadAll = () => {
-        const elements = Array.from(document.querySelectorAll('[class*="buttonDownload"]'));
+        const elements = Array.from(document.querySelectorAll('[class*="ButtonGroup_download"]'));
         elements.forEach((element) => element.click())
     }
 
 
     return (
         <div className={styles.app}>
-            <Nav onChange={handleFilesChosen} onClick={handleDownloadAll}
+            <Nav onChange={handleFilesChosen} onClickFiles={handleClickFiles} onClickDownload={handleDownloadAll}
                  fileNames={fileNames}/>
             {fileNames.map((fileName, index) => {
                 const filez = files[fileName];
