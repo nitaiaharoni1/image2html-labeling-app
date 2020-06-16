@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
-import styles from "./BoundingBox.module.scss";
+import styles from "./ComponentCanvas.module.scss";
 import { colors } from '../../utils/colors'
 
-const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToBox }) => {
+const ComponentCanvas = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToBox }) => {
     const [hoverIndex, setHoverIndex] = useState(-1);
     const [bg, setBg] = useState();
     const canvas = useRef();
@@ -195,4 +195,4 @@ const BoundingBox = ({ boxes = [], onClick, dimensions, image, tagNames, tagsToB
     />;
 }
 
-export default BoundingBox;
+export default ComponentCanvas;

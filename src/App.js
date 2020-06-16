@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Canvas, Nav } from './components';
+import { ComponentFrame, Nav } from './components';
 import styles from "./App.module.scss";
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
                 const filez = files[fileName];
                 const img = filez.img;
                 const txt = filez?.txt;
-                return <Canvas fileName={fileName}
+                return <ComponentFrame fileName={fileName}
                                fileNum={index + 1}
                                img={img}
                                txt={txt}/>

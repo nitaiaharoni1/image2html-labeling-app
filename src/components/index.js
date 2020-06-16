@@ -1,5 +1,5 @@
 export * from './Nav';
-export * from './BoundingBox';
+export * from './ComponentCanvas';
 export * from './ButtonGroup';
-export * from './Canvas';
+export * from './ComponentFrame';
 export * from './Checkboxes';

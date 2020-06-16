@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BoundingBox, Checkboxes, ButtonGroup } from '..';
-import styles from "./Canvas.module.scss";
+import { ComponentCanvas, Checkboxes, ButtonGroup } from '..';
+import styles from "./ComponentFrame.module.scss";
 
 let tagNames = [
     "a",
@@ -26,7 +26,7 @@ let tagNames = [
     "video"
 ];
 
-const Canvas = ({ fileName, fileNum, img, txt }) => {
+const ComponentFrame = ({ fileName, fileNum, img, txt }) => {
         const [url, setUrl] = useState();
         const [dimensions, setDimensions] = useState();
         const [boxes, setBoxes] = useState([]);
@@ -54,13 +54,19 @@ const Canvas = ({ fileName, fileNum, img, txt }) => {
             boxes.forEach(box => {
                 text.push([box.label, ...box.coord].join(' '))
             })
-            const element = document.createElement("a");
+            const elementTxt = document.createElement("a");
+            const elementImg = document.createElement("a");
             const file = new Blob([text.join('\n')], { type: 'text/plain' });
-            element.href = URL.createObjectURL(file);
-            element.download = `${fileName}.txt`;
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
+            elementTxt.href = URL.createObjectURL(file);
+            elementImg.href = URL.createObjectURL(img);
+            elementTxt.download = `${fileName}.txt`;
+            elementImg.download = `${fileName}.jpeg`;
+            document.body.appendChild(elementTxt);
+            document.body.appendChild(elementImg);
+            elementTxt.click();
+            elementImg.click();
+            document.body.removeChild(elementTxt);
+            document.body.removeChild(elementImg);
         }
 
         const handleReset = () => {
@@ -139,7 +145,7 @@ const Canvas = ({ fileName, fileNum, img, txt }) => {
                     </div>
                     <div className={styles.canvas}>
                         {url && dimensions &&
-                        <BoundingBox key={url}
+                        <ComponentCanvas key={url}
                                      image={url}
                                      dimensions={dimensions}
                                      boxes={boxes}
@@ -157,4 +163,4 @@ const Canvas = ({ fileName, fileNum, img, txt }) => {
     }
 ;
 
-export default Canvas;
+export default ComponentFrame;
