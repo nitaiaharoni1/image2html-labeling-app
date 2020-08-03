@@ -1,87 +1,55 @@
-# Project Title
+# Image2Html Labeling App
 
-One Paragraph of project description goes here
+> Custom image labeling tool for [Darknet YOLO v2/v3/v4](https://github.com/AlexeyAB/darknet) neural network object detection (Bounding Boxes).
 
-## Getting Started
+[![](https://img.shields.io/github/languages/top/nitaiaharoni1/image2html-labeling-app)]()
+[![](https://img.shields.io/github/stars/nitaiaharoni1/image2html-labeling-app)]()
+[![](https://img.shields.io/github/package-json/dependency-version/nitaiaharoni1/image2html-labeling-app/react)]()
+[![](https://img.shields.io/github/v/release/nitaiaharoni1/image2html-labeling-app)]()
+[![](https://img.shields.io/github/repo-size/nitaiaharoni1/image2html-labeling-app)]()
+[![](https://img.shields.io/github/issues/nitaiaharoni1/image2html-labeling-app)]()
+[![](https://img.shields.io/github/downloads/nitaiaharoni1/image2html-labeling-app/total)]()
+[![](https://img.shields.io/github/forks/nitaiaharoni1/image2html-labeling-app)]()
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+---
+## Description
 
-### Prerequisites
+Online Labeling App - [Link](https://image2html-labeling-app.herokuapp.com/)
 
-What things you need to install the software and how to install them
+A React web app GUI tool to support create of an accurate data set for machine learning algorithm `Darknet YOLO Object Detection`. 
+ 
+Allows viewing and editing bounding boxes on top of an image given a label file. 
 
-```
-Give examples
-```
+* Upload label files with their matching image.
+* Inspect, filter and remove wrong or unnecessary boxes and labels.
+* Download the updated files
+* Train your custom Object Detector model
 
-### Installing
+---
 
-A step by step series of examples that tell you how to get a development env running
+[![](./public/image2html-labeling-app.png)]()
 
-Say what the step will be
+[![](./public/image2html-labeling-app.gif)]()
 
-```
-Give the example
-```
+---
 
-And repeat
+## Installation
 
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+- Clone this repo
+```shell
+$ npm install
+$ npm start
 ```
 
-### And coding style tests
+---
 
-Explain what these tests test and why
+## FAQ
 
-```
-Give an example
-```
+##### Why can't I draw new boxes?
+In this version you can only delete boxes to optimize automatically prepared data
 
-## Deployment
+##### How should I create the label file?
+This file should be prepared with labels in accordance with the requirements of darknet See: 
+https://github.com/AlexeyAB/darknet
 
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+---
