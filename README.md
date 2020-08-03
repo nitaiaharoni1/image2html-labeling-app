@@ -29,6 +29,8 @@ Allows viewing and editing bounding boxes on top of an image given a label file.
 
 [![](./public/image2html-labeling-app.png)]()
 
+---
+
 [![](./public/image2html-labeling-app.gif)]()
 
 ---
@@ -51,5 +53,3 @@ In this version you can only delete boxes to optimize automatically prepared dat
 ##### How should I create the label file?
 This file should be prepared with labels in accordance with the requirements of darknet See: 
 https://github.com/AlexeyAB/darknet
-
----
